@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id "org.flywaydb.flyway" version "8.2.0"
 }
 
 group = 'dev.whyneet'
@@ -26,4 +27,22 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+flyway {
+	if (System.getenv("POSTGRES_URL") == null) {
+		file('src/main/resources/.env.local').readLines().each() {
+			def (key, value) = it.tokenize('=')
+			System.setProperty(key, value)
+			println("set ${key}:${value}")
+		}
+		println("loaded .env.local")
+	}
+
+	driver = "org.postgresql.Driver"
+	url = "jdbc:${System.properties.getProperty("POSTGRES_URL")}/postgres"
+	user = System.properties.getProperty("POSTGRES_USERNAME")
+	password = System.properties.getProperty("POSTGRES_PASSWORD")
+	schemas = ['loop']
+	defaultSchema = "loop"
 }

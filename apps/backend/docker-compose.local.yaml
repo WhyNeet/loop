@@ -11,8 +11,21 @@ services:
       - POSTGRES_PASSWORD=admin
     volumes:
       - pg_data:/var/lib/postgres/data
+  pgAdmin:
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    ports:
+      - "8888:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgAdmin_data:/var/lib/pgadmin/data
+    depends_on:
+      - postgres
 
 volumes:
   pg_data:
     driver:
       local
+  pgAdmin_data:
