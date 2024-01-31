@@ -2,6 +2,7 @@ package dev.whyneet.loop.database.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,5 +20,43 @@ public class Store {
     private UUID bannerId;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
+
+    public Store(String name, UUID bannerId, List<Product> products) {
+        this.name = name;
+        this.bannerId = bannerId;
+        this.products = products;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UUID getBannerId() {
+        return bannerId;
+    }
+
+    public void setBannerId(UUID bannerId) {
+        this.bannerId = bannerId;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }
