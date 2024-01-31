@@ -30,7 +30,7 @@ public class User {
     @Column(name = "avatar_id")
     private UUID avatarId;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Set<Address> addresses;
 
