@@ -9,5 +9,5 @@ public class ProductVariant {
     private String variantName;
 
     @Column(nullable = false)
-    private Integer price;
+    private Double price;
 }
