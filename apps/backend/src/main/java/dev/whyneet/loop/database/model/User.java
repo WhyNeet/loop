@@ -34,13 +34,14 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<Address> addresses;
 
-    public User(String username, String password, String email, String firstName, String lastName, UUID avatarId) {
+    public User(String username, String password, String email, String firstName, String lastName, UUID avatarId, Set<Address> addresses) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.avatarId = avatarId;
+        this.addresses = addresses;
     }
 
     public UUID getId() {
