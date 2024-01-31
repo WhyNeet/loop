@@ -2,6 +2,8 @@ package dev.whyneet.loop.database.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +29,10 @@ public class User {
 
     @Column(name = "avatar_id")
     private UUID avatarId;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private Set<Address> addresses;
 
     public User(String username, String password, String email, String firstName, String lastName, UUID avatarId) {
         this.username = username;
@@ -91,5 +97,18 @@ public class User {
 
     public void setAvatarId(UUID avatarId) {
         this.avatarId = avatarId;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void addAddress(Address address) {
+        if (this.addresses == null) this.addresses = new HashSet<>();
+        this.addresses.add(address);
     }
 }
