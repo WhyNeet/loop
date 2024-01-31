@@ -16,6 +16,8 @@ public class Product {
     @Column(nullable = false)
     private String description;
 
+    @Embedded
+    private ProductVariant productVariant;
 
     @ManyToOne
     private Store store;
