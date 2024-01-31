@@ -13,7 +13,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 600)
     private String description;
 
     @Embedded
